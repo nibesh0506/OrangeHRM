@@ -14,10 +14,14 @@ describe("Testing for a date picker", () => {
         cy.frameLoaded(".demo-frame")
 
         cy.iframe(".demo-frame")
-            .contains(new RegExp(`^${day}^`))
+            .find("#datepicker").click()
+
+        cy.iframe(".demo-frame")
+            .contains(new RegExp(`^${day}$`))
             .click()
 
         cy.iframe(".demo-frame")
+            .find("#datepicker")
             .should("have.value", formatted)
     })
 });
