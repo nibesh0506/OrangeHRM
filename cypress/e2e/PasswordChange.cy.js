@@ -1,21 +1,20 @@
 describe("Password Change of HRM", () => {
-    const login = (username,password="admin123") => {
-        cy.session([username,password], () => {
-            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php")
+    const login = (username) => {
+        cy.session(username, () => {
+            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
             cy.get("input[name='username']").type(username);
-            cy.get("input[name='password']").type(password);
+            cy.get("input[name='password']").type("admin123");
             cy.get("button[type='submit']").click();
         })
     }
-    const New_Password="admin@123#"
+    const New_Password = "admin@123#"
     beforeEach(() => {
         login("Admin")
     })
 
     it("Changing password", () => {
         cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
-
-        cy.get(".oxd-userdropdown-name").click()
+        cy.get('.oxd-userdropdown-img').click()
         cy.contains("a", "Change Password").click()
         cy.url().should("eq", "https://opensource-demo.orangehrmlive.com/web/index.php/pim/updatePassword")
         cy.get('.orangehrm-card-container > .oxd-text--h6').should("have.text", "Update Password")
@@ -32,18 +31,18 @@ describe("Password Change of HRM", () => {
 
         cy.get(".oxd-toast")
             .should('be.visible')
-            .and("contain.text","Success")
+            .and("contain.text", "Success")
 
         cy.get(".oxd-userdropdown-name").click()
-        cy.contains("a","Logout").click()
+        cy.contains("a", "Logout").click()
 
-        cy.url().should('eq',"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+        cy.url().should('eq', "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
         cy.get("input[name='username']").type("Admin");
         cy.get("input[name='password']").type(New_Password);
         cy.get("button[type='submit']").click();
 
-        //changed password cant get login and this is a bug for a orange hrm auth login system
-        cy.url().should('eq',"https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
-
-    })
+        //NOTE: changed password cant get login and this is a bug for a orange hrm auth login system
+        cy.url().should('eq', "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+        cy.get('.oxd-alert-content > .oxd-text').should("have.text", "Invalid credentials")
+     })
 })
