@@ -32,10 +32,10 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-autocomplete-text-input > input')
             .should("have.attr", 'placeholder', 'Type for hints...')
-            .type("manda", {delay: 100});
+            .type("hello", {delay: 100});
 
         cy.get('.oxd-autocomplete-option')
-            .contains("manda akhil user")
+            .contains("Hello World 13")
             .should('be.visible')
             .click();
 
@@ -46,5 +46,54 @@ describe("Performance_HRM", () => {
             .contains('IT Manager')
             .click({force: true});
 
+        cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')
+            .click({force: true});
+
+        cy.get('.oxd-select-dropdown')
+            .should('be.visible')
+            .contains('Engineering')
+            .click({force: true});
+
+        cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')
+            .click({force: true});
+
+        cy.get('.oxd-select-dropdown')
+            .should('be.visible')
+            .contains('Current and Past Employees')
+            .click({force: true});
+
+        cy.get(':nth-child(5) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')
+            .click({force: true});
+
+        cy.get('.oxd-select-dropdown')
+            .should('be.visible')
+            .contains('Activated')
+            .click({force: true})
+
+        cy.get(':nth-child(6) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input')
+            .click({force: true})
+
+        cy.get('.oxd-calendar-selector-year').click()
+        cy.get('.oxd-calendar-dropdown')
+            .contains('2025')
+            .click();
+
+        cy.get('.oxd-calendar-selector-month').click()
+        cy.get('.oxd-calendar-dropdown')
+            .contains('September')
+            .click();
+
+        cy.get('.oxd-calendar-date')
+            .contains('21')
+            .click();
+
+        cy.get(':nth-child(6) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input')
+            .should('have.value', '2025-21-09');
+
+        cy.get('.oxd-button--secondary')
+            .click({force: true})
+
+        cy.get('.oxd-text--toast-message')
+            .should("contain.text", "No Records Found")
     });
 });
