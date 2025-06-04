@@ -32,10 +32,10 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-autocomplete-text-input > input')
             .should("have.attr", 'placeholder', 'Type for hints...')
-            .type("hello", {delay: 100});
+            .type("manda", {delay: 100});
 
         cy.get('.oxd-autocomplete-option')
-            .contains("Hello World 13")
+            .contains("manda")
             .should('be.visible')
             .click();
 
@@ -75,7 +75,7 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-calendar-selector-year').click()
         cy.get('.oxd-calendar-dropdown')
-            .contains('2025')
+            .contains('2002')
             .click();
 
         cy.get('.oxd-calendar-selector-month').click()
@@ -88,7 +88,7 @@ describe("Performance_HRM", () => {
             .click();
 
         cy.get(':nth-child(6) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input')
-            .should('have.value', '2025-21-09');
+            .should('have.value', '2002-21-09');
 
         cy.get('.oxd-button--secondary')
             .click({force: true})
