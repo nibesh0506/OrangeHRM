@@ -52,11 +52,11 @@ describe('Time', () => {
 
         cy.get('.oxd-autocomplete-text-input > input')
             .should('have.attr', 'placeholder', 'Type for hints...')
-            .type('Nikita01 Shubhash Ganvir01', {delay: 100})
+            .type('manda kanupriyaTestkanupriya akhil sumant sumant user Negij NegiSharma', {delay: 100})
 
         cy.get('.oxd-autocomplete-option')
             .should('have.length', '1')
-            .and('have.text', 'Nikita01 Shubhash Ganvir01')
+            .and('have.text', 'manda kanupriyaTestkanupriya akhil sumant sumant user Negij NegiSharma')
             .and('be.visible')
             .click()
 
@@ -71,10 +71,10 @@ describe('Time', () => {
         //     .and('not.be.enabled')
 
         cy.get('.orangehrm-timesheet-header--title > .oxd-text')
-            .should('have.text', 'Timesheet for Nikita01 Ganvir01')
+            .should('have.text', 'Timesheet for manda kanupriyaTestkanupriya user Negij NegiSharma')
 
-        cy.get('.orangehrm-timesheet-table-body-cell')
-            .should('have.text', 'No Records Found')
+        cy.get('.oxd-alert-content > .oxd-text')
+            .should('have.text', 'No Timesheets Found')
 
         cy.get('.oxd-date-input > .oxd-input')
             .click()
@@ -94,6 +94,6 @@ describe('Time', () => {
             .click()
 
         cy.get('.oxd-date-input > .oxd-input')
-            .should('have.value', '16-2002-09 to 22-2002-09')
+            .should('have.value', '16-09-2002 to 22-09-2002')
     })
 })
