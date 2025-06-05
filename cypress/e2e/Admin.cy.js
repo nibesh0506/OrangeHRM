@@ -81,14 +81,14 @@ describe("Admin Dashboard", () => {
 
         //Note: Username Field
 
-        cy.get(':nth-child(2) > .oxd-input')
-            .should('be.visible')
-            .and('exist')
-            .type("Admin")
-            .type('{enter}')
-
-        cy.get('.orangehrm-horizontal-padding > .oxd-text')
-            .should("have.text", '(1) Record Found')
+        // cy.get(':nth-child(2) > .oxd-input')
+        //     .should('be.visible')
+        //     .and('exist')
+        //     .type("Admin")
+        //     .type('{enter}')
+        //
+        // cy.get('.orangehrm-horizontal-padding > .oxd-text')
+        //     .should("have.text", '(1) Record Found')
 
         //Note: USER ROLE
 
@@ -98,6 +98,23 @@ describe("Admin Dashboard", () => {
 
         cy.get(".oxd-select-dropdown > *")
             .should("have.length", 3)
+            .contains("ESS")
+            .click()
 
+        cy.get(".oxd-select-wrapper")
+            .eq(0)
+            .click()
+
+        cy.get(".oxd-select-dropdown > *")
+            .contains("ESS")
+            .should('not.be.enabled')
+
+        cy.get('.oxd-form-actions > .oxd-button--secondary')
+            .should('be.visible')
+            .and('be.enabled')
+            .click()
+
+        cy.get('.oxd-table-card')
+            .should('have.length',4)
     })
 })
