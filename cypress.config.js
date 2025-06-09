@@ -7,10 +7,10 @@ module.exports = defineConfig({
             on('task', {
                 async queryDb(query) {
                     const connection = await mysql.createConnection({
-                        host: '127.0.0.1',     // or your DB host
-                        user: 'root',          // your DB user
-                        password: 'password',  // your DB password
-                        database: 'bank'       // your DB name
+                        host: '',   //db host
+                        user: 'root',         
+                        password: '',  //your db password
+                        database: ''   //your db name   
                     });
 
                     const [rows] = await connection.execute(query);
