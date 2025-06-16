@@ -2,10 +2,11 @@ describe("Change Password Validation", () => {
 
     const login = (username, password = "admin123") => {
         cy.session([username, password], () => {
-            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-            cy.get("input[name='username']").type(username);
-            cy.get("input[name='password']").type(password);
+            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+            cy.get("input[name='username']", { timeout: 10000 }).should('be.visible').type(username);
+            cy.get("input[name='password']").should('be.visible').type(password);
             cy.get("button[type='submit']").click();
+            cy.url().should('include', '/dashboard');
         })
     }
     beforeEach(()=>{

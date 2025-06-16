@@ -2,15 +2,16 @@ describe('Time', () => {
     const login = (username) => {
         cy.session(username, () => {
             cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-            cy.get("input[name='username']").type(username);
-            cy.get("input[name='password']").type('admin123');
+            cy.get("input[name='username']", { timeout: 10000 }).should('be.visible').type(username);
+            cy.get("input[name='password']").should('be.visible').type('admin123');
             cy.get("button[type='submit']").click();
+            cy.url().should('include', '/dashboard');
         });
     }
     beforeEach(() => {
         login("Admin")
     })
-    it("Testing for a Timesheets Attendance Of an Employee", () => {
+    it.only("Testing for a Timesheets Attendance Of an Employee", () => {
         cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
         cy.get(':nth-child(4) > .oxd-main-menu-item')
             .should('be.visible')
@@ -23,7 +24,7 @@ describe('Time', () => {
         cy.get(".oxd-topbar-body-nav > ul > li")
             .should('have.length', '4')
     })
-    it.only('Employee Timesheet Testing', () => {
+    it('Employee Timesheet Testing', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet')
         //Note: NavBar TimeSheets DropDown
 

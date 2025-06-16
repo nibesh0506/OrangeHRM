@@ -1,10 +1,11 @@
 describe("Password Change of HRM", () => {
     const login = (username) => {
         cy.session(username, () => {
-            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-            cy.get("input[name='username']").type(username);
-            cy.get("input[name='password']").type("admin123");
+            cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+            cy.get("input[name='username']", { timeout: 10000 }).should('be.visible').type(username);
+            cy.get("input[name='password']").should('be.visible').type('admin123');
             cy.get("button[type='submit']").click();
+            cy.url().should('include', '/dashboard');
         })
     }
     const New_Password = "admin@123#"

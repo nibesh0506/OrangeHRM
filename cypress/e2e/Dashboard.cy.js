@@ -2,9 +2,10 @@ describe('DashBoard_Test', () => {
     const login = (username) => {
         cy.session(username, () => {
             cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-            cy.get("input[name='username']").type(username);
-            cy.get("input[name='password']").type('admin123');
+            cy.get("input[name='username']", { timeout: 10000 }).should('be.visible').type(username);
+            cy.get("input[name='password']").should('be.visible').type('admin123');
             cy.get("button[type='submit']").click();
+            cy.url().should('include', '/dashboard');
         });
     };
 
@@ -12,7 +13,7 @@ describe('DashBoard_Test', () => {
         login('Admin');
     });
 
-    it("Testing for a side panel menu length", () => {
+    it.only("Testing for a side panel menu length", () => {
         cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
         cy.get("ul.oxd-main-menu li").should("have.length", 12)
     })
@@ -44,7 +45,7 @@ describe('DashBoard_Test', () => {
         cy.get('svg.oxd-icon.oxd-menu-icon').should('be.visible')
 
     })
-    it.only('Pie Chart Testing of the dashboard', () => {
+    it('Pie Chart Testing of the dashboard', () => {
         cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index")
         cy.contains('Employee Distribution by Location')
             .parentsUntil('body')
