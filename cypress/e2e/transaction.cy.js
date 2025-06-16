@@ -70,7 +70,14 @@ describe("transaction", () => {
     it.only("Updating value in transaction table with valid data", () => {
         cy.task(
             'queryDb', {
-                query: 'UPDATE `transaction` SET deposit=40000.00, withdrawal=20000.00,description="ATM Withdrawal",amount=deposit-withdrawal, time=CURRENT_TIME, date=current_date WHERE transactionId=?;',
+                query: 'UPDATE `transaction` ' +
+                    'SET deposit=40000.00, ' +
+                    'withdrawal=20000.00,' +
+                    'description="ATM Withdrawal",' +
+                    'amount=deposit-withdrawal, ' +
+                    'time=CURRENT_TIME, ' +
+                    'date=current_date ' +
+                    'WHERE transactionId=?;',
                 values: [12]
             }).then((result) => {
             expect(result.affectedRows).to.equal(1);
