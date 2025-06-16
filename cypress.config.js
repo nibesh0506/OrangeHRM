@@ -1,22 +1,34 @@
-const { defineConfig } = require("cypress");
 const mysql = require('mysql2/promise');
 
-module.exports = defineConfig({
+/**
+ * @type {import('cypress').Cypress.Config}
+ */
+const config = {
     e2e: {
         setupNodeEvents(on, config) {
             on('task', {
-                async queryDb(query) {
-                    const connection = await mysql.createConnection({
-                        host: '127.0.0.1',     // or your DB host
-                        user: 'root',          // your DB user
-                        password: 'password',  // your DB password
-                        database: 'bank'       // your DB name
-                    });
+                queryDb({ query, values }) {
+                    const dbConfig = {
+                        host: '127.0.0.1',
+                        user: 'root',
+                        password: 'password',
+                        database: 'bank',
+                    };
 
-                    const [rows] = await connection.execute(query);
-                    return rows;
-                }
+                    return mysql
+                        .createConnection(dbConfig)
+                        .then((connection) =>
+                            connection.execute(query, values || []).then(([rows]) => {
+                                connection.end();
+                                return rows;
+                            })
+                        );
+                },
             });
-        }
-    }
-});
+
+            return config;
+        },
+    },
+};
+
+module.exports = config;
