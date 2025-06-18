@@ -10,16 +10,15 @@ describe("transaction", () => {
             expect(result).to.have.length(0)
         })
     })
-    
+
     //Works properly
-    it("FETCHING for a transaction table details with valid data", () => {
-        const Input = 7;
-        cy.task('queryDb',
-            `SELECT *
+    it.only("FETCHING for a transaction table details with valid data", () => {
+        cy.task('queryDb', {
+            query: `SELECT *
              FROM bank.transaction
-             WHERE transactionId = '${Input}' `,
-        ).then((result) => {
-            expect(result).to.have.length(1)
+             WHERE transactionId = ? `,
+            values: [7]
+    }).then((result) => {
             expect(result).to.have.length(1)
             const transaction = result[0];
             expect(transaction.transactionId).to.eq(7);
@@ -67,7 +66,7 @@ describe("transaction", () => {
     })
 
     //Safe from SQL injection
-    it.only("Updating value in transaction table with valid data", () => {
+    it("Updating value in transaction table with valid data", () => {
         cy.task(
             'queryDb', {
                 query: 'UPDATE `transaction` ' +
