@@ -79,7 +79,7 @@ describe('Bank', () => {
     })
 
     //saves from sql injection attack
-    it("Testing for updating value in bank table with valid data", () => {
+    it.only("Testing for updating value in bank table with valid data", () => {
         cy.task('queryDb', {
             query: `UPDATE bank
                     SET address='New Baneshwor,Nepal',
@@ -112,7 +112,7 @@ describe('Bank', () => {
         })
     })
 
-    it.only("Testing for deletion of a bank", () => {
+    it("Testing for deletion of a bank", () => {
         cy.task('queryDb', {
             query: `DELETE FROM bank WHERE bank_code=?`, values: [108]
         }).then((result) => {

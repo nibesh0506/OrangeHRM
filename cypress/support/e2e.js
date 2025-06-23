@@ -16,7 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 require('cypress-xpath');
-
+import 'cypress-downloadfile/lib/downloadFileCommand'
 Cypress.on('uncaught:exception', (err, runnable) => {
     // Ignore tooltip-related error
     if (err.message.includes('selector')) {
