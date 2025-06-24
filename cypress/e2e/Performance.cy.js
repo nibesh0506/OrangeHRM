@@ -89,7 +89,7 @@ describe("Performance_HRM", () => {
             .click();
 
         cy.get(':nth-child(6) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input')
-            .should('have.value', '2002-21-09');
+            .should('have.value', '21-09-2002');
 
         cy.get('.oxd-button--secondary')
             .click({force: true})
