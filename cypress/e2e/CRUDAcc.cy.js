@@ -128,7 +128,8 @@ describe('CRUD Acc', () => {
                 VALUES (1017, 'Savings', 10000.00, 1001, 4, 103);`
         }).then((result) => {
             expect(result.affectedRows).to.equal(1);
-
+        
+            //used a union sql 
             const query = `
             SELECT accNo, accType, balAmount, cust_id, passbook_id, bank_code, SLEEP(5) as delay 
             FROM account WHERE accNo = ?
