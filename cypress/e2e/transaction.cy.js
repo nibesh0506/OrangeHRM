@@ -37,6 +37,7 @@ describe("transaction", () => {
                 query: `INSERT INTO transaction(transactionId, deposit, withdrawal, description, amount, date, time, cust_id, passbook_id)
                 values(12,50000.00,0.00,'Cash deposit',50000.00, CURDATE(),CURTIME(),1005,8)`
             }).then((result) => {
+            }).then((result) => {
             expect(result.affectedRows).to.equal(1)
             return cy.task('queryDb', {
                 query: 'SELECT * FROM transaction WHERE transactionId = ?;',

@@ -72,7 +72,7 @@ describe('Bank', () => {
                     address: 'KTM',
                     bank_name: 'xyz bank'
                 }];
-                expect(JSON.stringify(result)).to.equal(JSON.stringify(expected))
+                expect(rows).to.deep.equal(expected)
             });
         });
     });
@@ -108,7 +108,7 @@ describe('Bank', () => {
                     address: 'New Baneshwor,Nepal',
                     bank_name: 'NMB Bank'
                 }])
-                expect(JSON.stringify(rows)).to.equal(JSON.stringify(expected))
+                expect(rows).to.deep.equal(expected)
             })
         })
     })

@@ -18,7 +18,7 @@ describe('Transaction2', () => {
                     delay: 0,
                 }
             ])
-            expect(JSON.stringify(result)).to.equal(JSON.stringify(expected))
+            expect(result).to.deep.equal(expected)
             const endTime = performance.now()
             const timetaken = endTime - startTime
             expect(timetaken).to.be.greaterThan(5000)
@@ -63,7 +63,7 @@ describe('Transaction2', () => {
                     passbook_id: 3,
                 }
             ];
-            expect(JSON.stringify(result)).to.equal(JSON.stringify(expected));
+            expect(result).to.deep.equal(expected)
         });
     });
 })
