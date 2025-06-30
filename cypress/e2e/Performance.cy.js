@@ -30,21 +30,12 @@ describe("Performance_HRM", () => {
 
         cy.get(':nth-child(1) > .oxd-input-group > .oxd-input-group__label-wrapper > .oxd-label')
             .should("have.text", "Employee Name");
-
-        // cy.get('.oxd-autocomplete-text-input > input')
-        //     .should("have.attr", 'placeholder', 'Type for hints...')
-        //     .type("manda", {delay: 100});
-
-        // cy.get('.oxd-autocomplete-option')
-        //     .contains("manda")
-        //     .should('be.visible')
-        //     .click();
-
+        
         cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) .oxd-select-text').click({force: true});
 
         cy.get('.oxd-select-dropdown')
             .should('be.visible')
-            .contains('IT Manager')
+            .should('contain.text', 'Site Engineer')
             .click({force: true});
 
         cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')
@@ -52,7 +43,7 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-select-dropdown')
             .should('be.visible')
-            .contains('Engineering')
+            .should('contain.text.text', 'Engineering')
             .click({force: true});
 
         cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')

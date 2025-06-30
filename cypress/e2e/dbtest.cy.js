@@ -4,6 +4,7 @@ describe("Bank DB Test", () => {
         const maliciousInput = `' OR '1'='1`;
         cy.task(
             'queryDb', {
+                // language=MySQL
                 query: `SELECT *
              FROM bank.bank
              WHERE bank_name = '${maliciousInput}'`
@@ -48,12 +49,20 @@ describe("Bank DB Test", () => {
         })
     })
 
-    it.only("Atm card insertion", () => {
+    it("Atm card insertion", () => {
         cy.task(
             'queryDb', {
                 query: "INSERT INTO atm_card(cardNo,expDate, CVV_no,accNo) VALUES (101,'2025-09-21',1041,1012)"
             }).then((result) => {
             expect(result.affectedRows).to.equal(1);
+        });
+    })
+    it.only("fetching atm card details", () => {
+        cy.task(
+            'queryDb', {
+                query: "SELECT * FROM atm_card where cardNo=101"
+            }).then((result) => {
+            expect(result).to.have.length(1);
         });
     })
 });

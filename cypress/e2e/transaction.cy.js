@@ -12,7 +12,7 @@ describe("transaction", () => {
     })
 
     //Works properly
-    it.only("FETCHING for a transaction table details with valid data", () => {
+    it("FETCHING for a transaction table details with valid data", () => {
         cy.task('queryDb', {
             query: `SELECT *
              FROM bank.transaction
@@ -107,7 +107,7 @@ describe("transaction", () => {
                  description='${maliciousdescriptionname}',
                  amount=deposit - withdrawal,
                  time=CURRENT_TIME,
-                 date=current_date
+                 date=CURRENT_DATE,
              WHERE transactionId = 15;`
         ).then((result) => {
             expect(result.error).to.exist;
@@ -131,7 +131,7 @@ describe("transaction", () => {
     });
 
     //Safe from SQL injection
-    it("Deleting value in transaction table with invalid data", () => {
+    it.only("Deleting value in transaction table with invalid data", () => {
         const maliciousData = `16');
         DROP TABLE transaction;--`;
         cy.task(
