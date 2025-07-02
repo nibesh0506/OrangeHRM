@@ -17,6 +17,8 @@ describe('Union Account and atm_card', () => {
                 query: query,
                 values: [1018]
             }).then((rows) => {
+                const endtime = performance.now();
+                const timetaken = endtime - start_time;
                 const expected = {
                     accNo: 1018,
                     accType: 'Savings',
@@ -26,10 +28,8 @@ describe('Union Account and atm_card', () => {
                     bank_code: 103,
                     delay: 0
                 };
-                const insertedRow = rows.find(r => r.accNo === 1019);
-                expect(JSON.stringify(insertedRow)).to.equal(JSON.stringify(expected[0]))
-                const endtime = performance.now();
-                const timetaken = endtime - start_time;
+                const insertedRow = rows.find(r => r.accNo === 1018);
+                expect(JSON.stringify(insertedRow)).to.equal(JSON.stringify(expected))
                 expect(timetaken).to.be.greaterThan(5000);
                 expect(timetaken).to.be.lessThan(5500);
             });
