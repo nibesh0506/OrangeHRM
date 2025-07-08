@@ -1,5 +1,5 @@
 describe('Union Bank and Account', () => {
-    it.only("Account Creation and Verifies Insertion using SLEEP", () => {
+    it("Account Creation and Verifies Insertion using SLEEP", () => {
         const startTime = performance.now();
         cy.task('queryDb', {
             query: `INSERT INTO bank(bank_code, address, bank_name) 

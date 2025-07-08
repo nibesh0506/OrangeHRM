@@ -15,9 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
 require('cypress-xpath');
+require('cypress-grep');
 import 'cypress-downloadfile/lib/downloadFileCommand'
 
-    Cypress.on('uncaught:exception', (err, runnable) => {
-        return false; // prevent test failure
-    });
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false;
+});

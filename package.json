@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@cypress/grep": "^4.1.0",
     "cookie-parser": "~1.4.4",
     "cypress": "^14.3.3",
     "cypress-downloadfile": "^1.2.4",
@@ -14,11 +15,13 @@
     "frame": "^1.0.0-alpha.2",
     "http-errors": "~1.6.3",
     "iframe": "^1.0.0",
+    "knex": "^3.1.0",
     "morgan": "~1.9.1",
     "mysql2": "^3.14.1",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "cypress-grep": "^3.0.4",
     "cypress-iframe": "^1.0.1",
     "cypress-xpath": "^2.0.1"
   }
