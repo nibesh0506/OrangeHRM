@@ -17,7 +17,7 @@
 import './commands'
 
 require('cypress-xpath');
-require('cypress-grep');
+require('@cypress/grep');
 import 'cypress-downloadfile/lib/downloadFileCommand'
 
 Cypress.on('uncaught:exception', (err, runnable) => {
