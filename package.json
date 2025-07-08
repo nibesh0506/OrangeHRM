@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@cypress/grep": "^4.1.0",
     "cookie-parser": "~1.4.4",
     "cypress": "^14.3.3",
     "cypress-downloadfile": "^1.2.4",
@@ -21,7 +20,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "cypress-grep": "^3.0.4",
+    "@cypress/grep": "^4.1.0",
     "cypress-iframe": "^1.0.1",
     "cypress-xpath": "^2.0.1"
   }
