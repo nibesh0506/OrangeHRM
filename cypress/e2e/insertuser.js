@@ -1,25 +1,50 @@
-const knex = require("knex")({
-    client: 'mysql2',
-    connection: {
-        host: '127.0.0.1',
-        user: 'root',
-        password: 'password',
-        database: 'bank'
-    }
-})
+const knexConfig = require("../../knexfile");
+const knex = require("knex")(knexConfig.development);
 
-knex('users')
-    .where('id', 1)
-    .update(({
-        "name": "ram",
-        "email": "ram@gmail.com"
-    }))
-    .then(() => {
-        console.log('user updated successfully') //success message to be shown in terminal
-    })
-    .catch(err => {
-        console.log('Error in updating a user', err) //error message to be shown in terminal
-    })
-    .finally(() => {
-        return knex.destroy(); //closing the established connection
-    })
+async function runQueries() {
+    try {
+        const users = await knex('users').select('*');
+        console.log("Users fetched successfully", users);
+
+        const name = "ram";
+        const email = "ram77@gmail.com";
+        if (!name || !email.includes("@")) {
+            throw new Error("Invalid input data");
+        }
+
+        const existing = await knex('users').where('email', email).first();
+        if (existing) {
+            throw new Error('Email already registered');
+        }
+
+        const insertedIds = await knex('users').insert({ name, email });
+        console.log("User inserted successfully with ID:", insertedIds);
+
+        const userId = insertedIds[0];
+
+        const user = await knex('users').where('id', userId).first();
+        if (!user) {
+            throw new Error("User not found for update");
+        }
+
+        const updatedCount = await knex('users')
+            .where('id', userId)
+            .update({
+                name: "ram12",
+                email: "ram@gmail.com"
+            });
+        console.log(`User updated successfully, rows affected: ${updatedCount}`);
+
+        const deletedCount = await knex('users')
+            .where('id', userId)
+            .delete();
+        console.log(`User deleted successfully, rows affected: ${deletedCount}`);
+
+    } catch (err) {
+        console.error("Error during DB operations:", err);
+    } finally {
+        await knex.destroy();
+    }
+}
+
+return runQueries();
