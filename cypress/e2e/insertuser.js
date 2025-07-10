@@ -6,8 +6,8 @@ async function runQueries() {
         const users = await knex('users').select('*');
         console.log("Users fetched successfully", users);
 
-        const name = "ram";
-        const email = "ram77@gmail.com";
+        const name = "ram".trim();
+        const email = "ram787@gmail.com".trim().toLowerCase()
         if (!name || !email.includes("@")) {
             throw new Error("Invalid input data");
         }
@@ -17,7 +17,7 @@ async function runQueries() {
             throw new Error('Email already registered');
         }
 
-        const insertedIds = await knex('users').insert({ name, email });
+        const insertedIds = await knex('users').insert({name, email});
         console.log("User inserted successfully with ID:", insertedIds);
 
         const userId = insertedIds[0];
@@ -30,8 +30,7 @@ async function runQueries() {
         const updatedCount = await knex('users')
             .where('id', userId)
             .update({
-                name: "ram12",
-                email: "ram@gmail.com"
+                name: "ram12", email: "ram@gmail.com"
             });
         console.log(`User updated successfully, rows affected: ${updatedCount}`);
 
