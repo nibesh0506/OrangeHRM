@@ -9,6 +9,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node: [ 16,18,20 ]
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -16,16 +20,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: ${{matrix.node}}
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm start
-          browser: chrome
+        run: npm run cy:run
 
       - name: Upload Screenshots
         if: failure()
@@ -43,25 +44,26 @@ jobs:
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
 
+      # prevents for the security vulnerability
+
       - name: Install Trivy
         run: |
-            sudo apt-get update
-            sudo apt-get install -y wget gnupg lsb-release apt-transport-https
-            wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
-            sudo gpg --dearmor -o /usr/share/keyrings/trivy.gpg
-            echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] \
-            https://aquasecurity.github.io/trivy-repo/deb \
-            $(lsb_release -cs) main" | \
-            sudo tee /etc/apt/sources.list.d/trivy.list > /dev/null
-            sudo apt-get update
-            sudo apt-get install -y trivy 
-          
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg lsb-release apt-transport-https
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
+          sudo gpg --dearmor -o /usr/share/keyrings/trivy.gpg
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] \
+          https://aquasecurity.github.io/trivy-repo/deb \
+          $(lsb_release -cs) main" | \
+          sudo tee /etc/apt/sources.list.d/trivy.list > /dev/null
+          sudo apt-get update
+          sudo apt-get install -y trivy 
 
       - name: Run Trivy filesystem scan
         run: |
-            trivy fs . \
-              --exit-code 1 \
-              --severity CRITICAL,HIGH \
-              --ignore-unfixed \
-              --format table \
-              --skip-dirs node_modules,.git
+          trivy fs . \
+            --exit-code 1 \
+            --severity CRITICAL,HIGH \
+            --ignore-unfixed \
+            --format table \
+            --skip-dirs node_modules,.git

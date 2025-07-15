@@ -35,7 +35,7 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-select-dropdown')
             .should('be.visible')
-            .should('contain.text', 'Automation Tester')
+            .contains('.oxd-select-option', 'Automaton Tester')
             .click({force: true});
 
         cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')
@@ -43,7 +43,7 @@ describe("Performance_HRM", () => {
 
         cy.get('.oxd-select-dropdown')
             .should('be.visible')
-            .should('contain.text', 'Engineering')
+            .contains('.oxd-select-option', 'Engineering')
             .click({force: true});
 
         cy.get(':nth-child(4) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text')

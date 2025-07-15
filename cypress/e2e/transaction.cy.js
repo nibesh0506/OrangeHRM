@@ -37,7 +37,6 @@ describe("transaction", () => {
                 query: `INSERT INTO transaction(transactionId, deposit, withdrawal, description, amount, date, time, cust_id, passbook_id)
                 values(12,50000.00,0.00,'Cash deposit',50000.00, CURDATE(),CURTIME(),1005,8)`
             }).then((result) => {
-            }).then((result) => {
             expect(result.affectedRows).to.equal(1)
             return cy.task('queryDb', {
                 query: 'SELECT * FROM transaction WHERE transactionId = ?;',
@@ -116,15 +115,15 @@ describe("transaction", () => {
     })
 
     //Safe from SQL injection
-    it('Deletes a transaction and verifies deletion', () => {
+    it.only('Deletes a transaction and verifies deletion', () => {
         cy.task('queryDb', {
             query: 'DELETE FROM `transaction` WHERE transactionId = ?;',
-            values: [12]
+            values: [11]
         }).then((result) => {
             expect(result.affectedRows).to.equal(1);
             return cy.task('queryDb', {
                 query: 'SELECT * FROM `transaction` WHERE transactionId = ?;',
-                values: [12]
+                values: [11]
             });
         }).then((rows) => {
             expect(rows).to.have.length(0);
@@ -132,8 +131,8 @@ describe("transaction", () => {
     });
 
     //Safe from SQL injection
-    it.only("Deleting value in transaction table with invalid data", () => {
-        const maliciousData = `16');
+    it("Deleting value in transaction table with invalid data", () => {
+        const maliciousData = `11');
         DROP TABLE transaction;--`;
         cy.task(
             'queryDb',
